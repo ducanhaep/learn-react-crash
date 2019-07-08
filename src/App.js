@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Couters from './couters';
+import Counters from './counters';
 import NavBar from "./navbar";
 
 
@@ -7,7 +7,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      couters: [
+      counters: [
         {id: 1, value: 4},
         {id: 2, value: 0},
         {id: 3, value: 0},
@@ -15,20 +15,38 @@ export default class App extends Component {
       ]
     }
   }
-  handleIncre = (couter) => {
-    const couters = [...this.state.couters];
-    const index = couters.indexOf(couter);
-    couters[index] = { ...couter }
-    couters[index].value++;
-    this.setState({ couters });
+  handleIncrement = (counter) => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter }
+    counters[index].value++;
+    this.setState({ counters });
+  }
+
+  handleDelete = counterId => {
+    const counters = this.state.counters.filter(item => item.id !== counterId)
+    this.setState({ counters })
+  }
+  
+  handleReset = () => {
+    const counters = this.state.counters.map(item => {
+      item.value = 0;
+      return item;
+    });
+    this.setState({ counters })
   }
 
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar totalCounter={this.state.counters.filter(item => item.value > 0).length}/>
         <main className="container">
-          <Couters />
+          <Counters 
+            onReset={this.handleReset}
+            onDelete={this.handleDelete}
+            onIncrement={this.handleIncrement}
+            counters={this.state.counters}
+          />
         </main>
       </>
     )
