@@ -1,5 +1,5 @@
 import React from "react";
-import {MyContext} from './context';
+import { MyContext } from "./context";
 
 class Counter extends React.Component {
   static contextType = MyContext;
@@ -47,7 +47,7 @@ class Counter extends React.Component {
 //     const { value } = props.counter;
 //     return value === 0 ? "Zero" : value;
 //   };
-  
+
 //   return (
 //     <div>
 //       <span className={getBadgeClasses()}>{formatCount()}</span>
